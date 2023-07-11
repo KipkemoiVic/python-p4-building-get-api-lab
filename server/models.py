@@ -12,9 +12,13 @@ class Bakery(db.Model, SerializerMixin):
     __tablename__ = 'bakeries'
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    baked_goods = db.relationship('BakedGood', backref='bakery')
 
 class BakedGood(db.Model, SerializerMixin):
     __tablename__ = 'baked_goods'
 
     id = db.Column(db.Integer, primary_key=True)
-    
+    name = db.Column(db.String(255))
+    price = db.Column(db.Float)
+    bakery_id = db.Column(db.Integer, db.ForeignKey('bakeries.id'))
